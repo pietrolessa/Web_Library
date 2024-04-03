@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -55,6 +56,31 @@ public class Controller {
             .map(livro->livro.getTitulo())
             .collect(Collectors.toSet());
     }
+
+    //Devolver a lista dos livros publicados no ano indicado usando uma query string: /biblioteca/livrosPorAno&ano=<valor>
+    @GetMapping("/livrosautor")
+    @CrossOrigin(origins = "*")
+    public List<Livro> getLivrosAutor(@RequestParam(value="autor")String autor){
+        System.out.println("AUTOR:"+autor);
+        System.out.println(livros);
+        return livros.stream()
+            .filter(livro->livro.getAutor().equals(autor))
+            .toList();
+    }
+
+    //Devolve a lista dos livros cujo ano de publicacao eh inferior ao ano informado: /biblioteca/desatualizados/ano
+    // @GetMapping("/livrosautor/{autor}/ano/{ano}")
+    // @CrossOrigin(origins = "*")
+    // public List<Livro>getLivrosAutor(@RequestParam(value="autor")String autor){
+    //     return livros.stream()
+    //         .filter(livro->livro.getAutor().equals(autor))
+    //         .toList();
+    // }
+
+    //Crie um rota que permita consultar todos os livros de um determinado autor publicados em um determinado ano 
+
+
+    //Crie uma rota POST que permita atualizar/corrigir os dados de um livro do acervo da biblioteca (atualiza todos os campos menos o codigo)
         
 }
     
